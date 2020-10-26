@@ -1,0 +1,95 @@
+<style>
+	.main-holder {
+		/*border: 5px solid blue;*/
+		position: fixed;
+		top: 0px;
+		left: 0px;
+		bottom: 0px;
+		right: 0px;
+		background: white;
+	}
+
+	.image-column {
+		background: linear-gradient(rgba(0, 0, 0, 0.4),rgba(0, 0, 0, 0.8)), url(http://www.planwallpaper.com/static/images/colorful-triangles-background_yB0qTG6.jpg) no-repeat center center;
+		background-size: cover;
+		-webkit-background-size: cover;
+		-moz-background-size: cover;
+		-o-background-size: cover;
+		background-size: cover;
+	}
+
+	.flexbox-container {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 100%;
+		width: 100%;
+	}
+
+	.centered-item {
+		max-width: 90%;
+	}
+
+	.glass-item {
+		/*background: rgba(0,0,0,0.1);*/
+		padding: 20px;
+	}
+
+	.form-holder {
+		text-align: left;
+		padding: 20px;
+	}
+
+</style>
+<div class="main-holder stackable ui two column center aligned grid">
+	<div class="column image-column">
+		<div class="flexbox-container">
+			<div class="centered-item" style="color:white;">
+				<h1>OneFob</h1>
+				<p class="glass-item">
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+				</p>
+			</div>
+		</div>
+	</div>
+	<div class="column">
+
+		<div class="flexbox-container">
+			<div class="centered-item">
+				<div class="ui form form-holder">
+					<div class="field">
+						<label>Middle</label>
+						<input placeholder="Middle Name" type="text">
+					</div>
+					<div class="field">
+						<label>Middle</label>
+						<input placeholder="Middle Name" type="text">
+					</div>
+					<div class="fields">
+						<div class="four wide field">
+							<label>Middle</label>
+							<input placeholder="2 Wide" type="text">
+						</div>
+						<div class="eight wide field">
+							<label>Middle</label>
+							<input placeholder="12 Wide" type="text">
+						</div>
+						<div class="four wide field">
+							<label>Middle</label>
+							<input placeholder="2 Wide" type="text">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</div>
+
+<script type="text/javascript" charset="utf-8">
+	$(function() {
+		$(".close").hide();
+	});
+
+</script>

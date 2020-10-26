@@ -1,0 +1,67 @@
+<style>
+
+</style>
+<div class="ui container" style="margin-top:50px;">
+    <h2 class="ui header">
+        <i class="bookmark outline icon iconblue"></i>
+        <div class="content">
+            My Saved Trials
+            <div class="sub header" id="">Total <span id="saved-count"></span> trials saved</div>
+        </div>
+    </h2>
+    <div class="ui divider"></div>
+
+    <br>
+    <div id="stage-saved-trials"></div>
+</div>
+
+<template id="TEMPLATE-SAVED-TRIALS-LIST" type="text/template">
+    <div class="ui segment  padded blue">
+            <table id="contacts-table" class="ui very basic small table selectable " cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        
+                        <th>Trial</th>
+                        <th>NCTID</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- {{#trials}} -->
+                    <tr>
+                        <td class="center aligned">
+                            <p class="left aligned padded">
+                                    {{clinical_study.brief_title}}
+                            </p>
+                            
+                        </td>
+                        <td class="center aligned">
+                            <a href="#/trial/{{nctid}}"><span class="ui label tag">{{nctid}}</span></a>
+
+                        </td>
+                        
+                    </tr>
+                    <!-- {{/trials}} -->
+                </tbody>
+            </table>
+        </div>
+
+</template>
+
+<script>
+    function showSavedTrials() {
+        $("#stage-saved-trials").empty('');
+        var items = Trials.getSavedTrials();
+        var template = $('#TEMPLATE-SAVED-TRIALS-LIST').html();
+        var html = Mustache.to_html(template, {
+            trials: items
+        });
+        $("#stage-saved-trials").append(html);
+        $("#saved-count").html(items.length);
+    }
+
+    $(function() {
+        $(".trial-specific").hide();
+        showSavedTrials();
+    });
+</script>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.0/semantic.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/dataTables.semanticui.min.css" />
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.3.0/animate.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css' rel='stylesheet' type='text/css'>
+    <link href='css/default.css' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+
+    <div class="main-wrapper">
+        <div class="ui menu navbar fixed">
+            <a href="" id="side-nav" class=" item borderless">
+                <i class="content icon"></i>
+            </a>
+            <a href="" id="full-screen" class=" item borderless fitted">
+                <i class="expand icon"></i>
+            </a>
+            <a href="" class="item">
+                <b>CANCR</b>TRIALS</a>
+
+            <div class="right menu borderless horizontally fitted">
+                <a class="item trial-specific" href="#/search">
+                    <i class="search icon"></i> Search Results
+                </a>
+
+                <div class="item trial-specific">
+                    <button class="mini ui  button">
+                        <i class="edit icon red"></i> Join</button> &nbsp;
+                    <button class="mini ui  button" id="button-save-trial">
+                        <i class="heart outline icon red"></i> Save</button> &nbsp;
+                    <button class="mini compact ui button" id="button-save-trial" onclick="App.Events.emit('discuss-current-trial');">
+                                <i class="comment outline icon red"></i> Discuss</button>
+                </div>
+
+                <!-- <a class="item trial-specific">
+                    
+                </a> -->
+
+
+                <a class="ui dropdown item">
+                    <img class="ui avatar image" src="https://semantic-ui.com/images/wireframe/square-image.png"> John Smith
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <div class="item">
+                            <i class="mail icon"></i> Messages
+                        </div>
+                        <div class="item">
+                            <i class="mail icon"></i> Messages
+                        </div>
+                        <div class="divider"></div>
+                        <div class="item">
+                            <i class="attention icon"></i> Important
+                        </div>
+                        <div class="item">
+                            <i class="comment icon"></i> Announcement
+                        </div>
+                        <div class="divider"></div>
+                        <div class="item" onclick="App.FullScreen.showScreen('screens/login.html');">
+                            <i class="sign out icon"></i> Logout
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+
+        <div id="stage" class="stage stage-padded" style="margin-top: 20px;">
+
+        </div>
+    </div>
+
+    <div class="side-wrapper">
+        <div class="ui visible vertical menu inverted teal inside-menu" style="width:200px;">
+            <div class="item">
+                <div style="width:200px;height:40px;"></div>
+            </div>
+            <!-- <a class="ui title item">Search
+                    <i class="search icon"></i>
+                </a> -->
+            <div class="ui vertical accordion inverted teal">
+                <div class="ui title item">Search
+                    <i class="dropdown icon"></i>
+                </div>
+                <div class="content tight-container">
+                    <a class="item" href="#/search">New search
+                            <i class="search outline icon"></i>
+                        </a>
+
+                </div>
+                <div class="ui title item">
+                    <i class="dropdown icon"></i> Trials
+                </div>
+                <div class="content tight-container">
+                    <a class="item" href="#/savedtrials">Saved trials
+                            <i class="plus square outline  icon"></i>
+                        </a>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="fullscreenElement">
+        <i class="io remove icon close big inverted"></i>
+        <div id="fullscreen_stage" class="text-center">
+            <div class="container">
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.0/semantic.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.15/js/dataTables.semanticui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/path.js/0.8.4/path.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.2/mustache.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-fullscreen-plugin/1.1.4/jquery.fullscreen-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/x2js/1.2.0/xml2json.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
+
+    <script src="js/App.js" type="text/javascript"></script>
+    <script src="js/Trials.js" type="text/javascript"></script>
+    <script src="js/Routes.js" type="text/javascript"></script>
+
+    <!-- <script src="js/onetrial.js" type="text/javascript"></script> -->
+    <script src="js/onestudy.js" type="text/javascript"></script>
+
+    <script>
+        $(document).ready(function() {
+            App.init();
+
+            $('#button-save-trial').unbind('click').click(function() {
+                App.Events.emit('save-selected-trial');
+            });
+        });
+    </script>
+
+</body>
+
+</html>

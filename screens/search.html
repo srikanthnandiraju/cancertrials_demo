@@ -1,0 +1,524 @@
+<style>
+    .mini-head {
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-weight: bold;
+        color: silver;
+    }
+    
+    p {
+        padding-top: 5px;
+    }
+    /* styles for '...' */
+    
+    .block-with-text {
+        /* hide text if it more than N lines  */
+        overflow: hidden;
+        /* for set '...' in absolute position */
+        position: relative;
+        /* use this value to count block height */
+        line-height: 1.2em;
+        /* max-height = line-height (1.2) * lines max number (3) */
+        max-height: 4.8em;
+        /* fix problem when last visible word doesn't adjoin right side  */
+        text-align: justify;
+        /* place for '...' */
+        margin-right: -1em;
+        padding-right: 1em;
+    }
+    /* create the ... */
+    
+    .block-with-text:before {
+        /* points in the end */
+        content: '...';
+        /* absolute position */
+        position: absolute;
+        /* set position to right bottom corner of block */
+        right: 0;
+        bottom: 0;
+    }
+    /* hide ... if we have text, which is less than or equal to max lines */
+    
+    .block-with-text:after {
+        /* points in the end */
+        content: '';
+        /* absolute position */
+        position: absolute;
+        /* set position to right bottom corner of text */
+        right: 0;
+        /* set width and height */
+        width: 1em;
+        height: 1em;
+        margin-top: 0.2em;
+        /* bg color = bg color under block */
+        background: white;
+    }
+    
+    #search-keyword {
+        color: red;
+    }
+    
+    #result-count {
+        color: red;
+    }
+    
+    .search-header {
+        color: gray;
+    }
+</style>
+<div class="ui container" style="margin-top:50px;">
+
+    <div class="ui stackable grid">
+        <form action="">
+            <div class="four wide column">
+
+                <div class="ui segment">
+                    <div class="ui form">
+
+                        <div class="field">
+                            <label>Search</label>
+                            <div class="ui icon input fluid">
+                                <input type="text" placeholder="Search..." id="_fulltext" name="_fulltext">
+                                <i class=" search link icon" id="button-search"></i>
+                            </div>
+                            <p>Enter search terms to find matching trials</p>
+                        </div>
+
+                        <div class="field">
+                            <button id="button-next" type="button" class="btn btn-primary">Next</button>
+                            <button id="button-prev" type="button" class="btn btn-primary">Prev</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ui segment form orange">
+                    <div class="ui two column">
+                        <div class="field column">
+                            <label>
+                                <i class="users icon teal"></i>GENDER</label>
+                            <div class="ui selection dropdown gender-dropdown">
+                                <input type="hidden" name="eligibility.structured.gender">
+                                <i class="dropdown icon"></i>
+                                <div class="default text">Select gender</div>
+                                <div class="menu">
+                                    <div class="item" data-value="" data-text="all">
+                                        <i class="users icon"></i> All
+                                    </div>
+                                    <div class="item" data-value="male" data-text="Male">
+                                        <i class="male icon"></i> Male
+                                    </div>
+                                    <div class="item" data-value="female" data-text="Female">
+                                        <i class="female icon"></i> Female
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="field column">
+                            <label>
+                                <i class="clock outline icon teal"></i>AGE</label>
+                            <input type="text" placeholder="Age in years" id="age" name="eligibility.structured.max_age_in_years_gte">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ui segment blue">
+                    <div class="ui toggle checkbox">
+                        <input type="checkbox" name="accepts_healthy_volunteers_indicator">
+                        <label>Healthy patients</label>
+                    </div>
+                </div>
+
+                <div class="ui segment form teal">
+                    <div class="field">
+                        <label>
+                            <i class="map icon teal"></i>CITY</label>
+                        <input type="text" placeholder="enter city or zip" name="sites.org_city">
+                        <input type="hidden" name="sites.org_coordinates_lat">
+                        <input type="hidden" name="sites.org_coordinates_lon">
+                    </div>
+                    <div class="field">
+                        <label>
+                            <i class="sync icon teal"></i>DISTANCE</label>
+                        <input type="text" placeholder="distance in miles" name="sites.org_coordinates_dist">
+                    </div>
+                </div>
+
+
+
+
+                <div class="ui orange segment form">
+                    <div class="field">
+                        <label>
+                            <i class="target icon teal"></i>PRIMARY PURPOSE OF TRIAL</label>
+                    </div>
+
+                    <div class="field">
+                        <div class="ui checkbox">
+                            <input type="checkbox" name="primary_purpose.primary_purpose_code" value="treatment">
+                            <label>treatment</label>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui checkbox">
+                            <input type="checkbox" name="primary_purpose.primary_purpose_code" value="supportive care">
+                            <label>supportive care</label>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui checkbox">
+                            <input type="checkbox" name="primary_purpose.primary_purpose_code" value="screening">
+                            <label>screening</label>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui checkbox">
+                            <input type="checkbox" name="primary_purpose.primary_purpose_code" value="prevention">
+                            <label>prevention</label>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui checkbox">
+                            <input type="checkbox" name="primary_purpose.primary_purpose_code" value="diagnostic">
+                            <label>diagnostic</label>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui checkbox">
+                            <input type="checkbox" name="primary_purpose.primary_purpose_code" value="basic science">
+                            <label>basic science</label>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui checkbox">
+                            <input type="checkbox" name="primary_purpose.primary_purpose_code" value="health services research">
+                            <label>health services research</label>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="ui red segment form">
+                    <div class="field">
+                        <label>
+                            <i class="arrow right circle icon teal"></i>PHASE</label>
+                    </div>
+
+                    <div class="field">
+                        <div class="ui checkbox">
+                            <input type="checkbox" name="phase.phase" value="I">
+                            <label>I</label>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <div class="ui checkbox">
+                            <input type="checkbox" name="phase.phase" value="I_II">
+                            <label>I & II</label>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <div class="ui checkbox">
+                            <input type="checkbox" name="phase.phase" value="II_III">
+                            <label>II & III</label>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <div class="ui checkbox">
+                            <input type="checkbox" name="phase.phase" value="IV">
+                            <label>IV</label>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <div class="ui checkbox">
+                            <input type="checkbox" name="phase.phase" value="O">
+                            <label>OTHER</label>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <div class="ui checkbox">
+                            <input type="checkbox" name="phase.phase" value="NA">
+                            <label>NONE</label>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="ui purple segment form">
+
+                    <div class="field">
+                        <label>
+                            <i class="user outline  icon teal"></i>RECRUITMENT STATUS</label>
+                    </div>
+
+                    <div class="field">
+                        <div class="ui checkbox">
+                            <input type="checkbox" name="current_trial_status" value="active">
+                            <label>Active</label>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <div class="ui checkbox">
+                            <input type="checkbox" name="current_trial_status" value="enrolling by invitation">
+                            <label>Enrolling by invitation</label>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <div class="ui checkbox">
+                            <input type="checkbox" name="current_trial_status" value="in review">
+                            <label>In Review</label>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <div class="ui checkbox">
+                            <input type="checkbox" name="current_trial_status" value="approved">
+                            <label>Approved</label>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <div class="ui checkbox">
+                            <input type="checkbox" name="current_trial_status" value="temporarily closed to accrual">
+                            <label>Closed to accrual temp.</label>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <div class="ui checkbox">
+                            <input type="checkbox" name="current_trial_status" value="temporarily closed to accrual and intervention">
+                            <label>Closed to accr. & inter. temp.</label>
+                        </div>
+                    </div>
+
+
+                    <div class="field">
+                        <div class="ui checkbox">
+                            <input type="checkbox" name="current_trial_status" value="closed to accrual and intervention">
+                            <label>Closed to accr. & inter.</label>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <div class="ui checkbox">
+                            <input type="checkbox" name="current_trial_status" value="closed to accrual">
+                            <label>Closed to accrual</label>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <div class="ui checkbox">
+                            <input type="checkbox" name="current_trial_status" value="administratively complete">
+                            <label>Administratively complete</label>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <div class="ui checkbox">
+                            <input type="checkbox" name="current_trial_status" value="Complete">
+                            <label>Complete</label>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <div class="ui checkbox">
+                            <input type="checkbox" name="current_trial_status" value="withdrawn">
+                            <label>Withdrawn</label>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+
+
+                <div class="ui basic segment center aligned">
+                    <button class="ui primary button " id="apply-filter">Apply Filter</button>
+                </div>
+
+            </div>
+        </form>
+        <div class="eleven wide column">
+
+            <h3 class="search-header">
+                <i class="list icon teal"></i>
+                <span id="result-count">-</span> results found for
+                <span id="search-keyword"></span></h3>
+            <div class="ui stackable cards" id="stage-results">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<template id="TEMPLATE-TRIALS-LIST" type="text/template">
+    {{#trials}}
+    <div class="ui fluid blue card" style="padding:10px;">
+
+        <!-- <div class="content">
+			<span class="ui teal ribbon label">Phase: {{phase.phase}}</span>
+			<span class="ui blue label">Healthy patients :
+				<strong> {{accepts_healthy_volunteers_indicator}}</strong>
+			</span>
+			<span class="ui red label">protocol type :
+				<strong> {{study_protocol_type}}</strong>
+			</span>
+		</div> -->
+
+        <div class="content">
+            <div class="header" style="color:#3C7DB5">{{brief_title}}</div>
+            <!-- <a class="ui teal right ribbon label">{{record_verification_date}}</a> -->
+            <div class="meta">
+                <span class="left floated ">
+                    <i class="clock icon"></i>
+                    Verification date : {{record_verification_date}}
+                </span>
+
+                <span class="right floated">
+                    <i class="arrow alternate circle up outline icon"></i>
+                    <a href="#/trial/{{nct_id}}">{{nct_id}}</a>
+                </span>
+            </div>
+            <br>
+            <br>
+            <div>
+                <span class="ui label ">
+                    <i class="plus square outline icon blue"></i>
+                    Healthy Volunteers : {{accepts_healthy_volunteers_indicator}}
+                </span>
+                <span class="ui label ">
+                    <i class="check circle outline icon blue"></i>
+                    Type : {{study_protocol_type}}
+                </span>
+                <span class="ui label ">
+                    <i class="sync icon blue"></i>
+                    status : {{current_trial_status}}
+                </span>
+            </div>
+            <br>
+            <div class="description">
+                <p class="block-with-text">
+                    {{brief_summary}}
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="content">
+
+            <div class="ui four column grid center aligned">
+                <div class="column">
+                    <i class="user outline icon large iconblue"></i>
+                    <p>
+                        <span class="mini-head">AGE</span>
+                        <br> {{eligibility.structured.min_age_in_years}}
+                        <!-- {{accepts_healthy_volunteers_indicator}} -->
+                    </p>
+                </div>
+                <div class="column">
+                    <i class="users icon  large iconblue"></i>
+                    <p>
+                        <span class="mini-head">GENDER</span>
+                        <br> {{eligibility.structured.gender}}
+
+                    </p>
+                </div>
+                <div class="column">
+                    <i class=" arrow alternate circle right outline icon large  iconblue"></i>
+                    <p>
+                        <span class="mini-head">PHASE</span>
+                        <br> {{phase.phase}}
+                    </p>
+                </div>
+                <div class="column">
+                    <i class="stethoscope icon large iconblue"></i>
+                    <p>
+                        <span class="mini-head">PURPOSE</span>
+                        <br> {{primary_purpose.primary_purpose_code}}
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    {{/trials}}
+
+</template>
+
+<script>
+    function showTrials() {
+        $("#stage-results").empty('');
+        var items = Trials.searchResults;
+        var template = $('#TEMPLATE-TRIALS-LIST').html();
+        var html = Mustache.to_html(template, {
+            trials: items.trials
+        });
+        $("#stage-results").append(html);
+        $("#result-count").html(Trials.searchResults.total);
+    }
+
+
+    function searchByFilters() {
+        var orig = $('form').serialize();
+        var serializedData = orig.replace(/[^&]+=\.?(?:&|$)/g, '');
+        Trials.search(serializedData, function(sr) {
+            showTrials();
+        });
+    }
+
+
+    $(function() {
+
+        $(".trial-specific").hide();
+        $(".gender-dropdown").dropdown();
+
+        var includeList = ["nct_id", "brief_title", "brief_summary", "phase.phase", "study_protocol_type",
+            "eligibility.structured.gender", "eligibility.structured.min_age_in_years",
+            "primary_purpose.primary_purpose_code", "current_trial_status", "lead_org",
+            "principal_investigator", "accepts_healthy_volunteers_indicator",
+            "record_verification_date", "protocol_id"
+        ];
+
+        var filter = {
+            "_fulltext": "prostrate",
+            "include": includeList
+        }
+
+
+        // Button action handlers
+        $(document.body).on('click', '#button-search', function() {
+            searchByFilters();
+        });
+
+        $("#apply-filter").click(function(e) {
+            e.preventDefault();
+            searchByFilters();
+        });
+
+        $(document.body).on('click', '#button-next', function() {
+            Trials.getNext(function(sr) {
+                console.log(sr);
+                showTrials();
+            });
+        });
+
+        // Show last search list    
+        if (Trials.searchResults != undefined && Trials.searchResults.total > 0) {
+            showTrials();
+        }
+
+    });
+</script>

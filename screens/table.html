@@ -1,0 +1,86 @@
+<style type="text/css" media="screen">
+	.right-aligned-panel{
+		text-align:right;
+	}
+</style>
+<div class="ui container center aligned animated fadeIn">
+	<h1 id="">HOME</h1>
+
+	<div>
+		<table id="sample-table" class="ui small table selectable " cellspacing="0" width="100%">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Position</th>
+					<th>Office</th>
+					<th>Age</th>
+					<th>Start date</th>
+					<th>Salary</th>
+				</tr>
+			</thead>
+			<!-- <tfoot>
+			<tr>
+			<th>Name</th>
+			<th>Position</th>
+			<th>Office</th>
+			<th>Age</th>
+			<th>Start date</th>
+			<th>Salary</th>
+			</tr>
+			</tfoot> -->
+			<tbody>
+				<tr>
+					<td>Tiger Nixon</td>
+					<td>System Architect</td>
+					<td>Edinburgh</td>
+					<td>61</td>
+					<td>2011/04/25</td>
+					<td>$320,800</td>
+				</tr>
+				<tr>
+					<td>Garrett Winters</td>
+					<td>Accountant</td>
+					<td>Tokyo</td>
+					<td>63</td>
+					<td>2011/07/25</td>
+					<td>$170,750</td>
+				</tr>
+				<tr>
+					<td>Cedric Kelly</td>
+					<td>Senior Javascript Developer</td>
+					<td>Edinburgh</td>
+					<td>22</td>
+					<td>2012/03/29</td>
+					<td>$433,060</td>
+				</tr>
+				<tr>
+					<td>Airi Satou</td>
+					<td>Accountant</td>
+					<td>Tokyo</td>
+					<td>33</td>
+					<td>2008/11/28</td>
+					<td>$162,700</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+<script>
+	$(function() {
+		$('#sample-table').DataTable({
+			"dom" : '<"ui center aligned"f><"ui segment"t><"right-aligned-panel"p>',
+			language : {
+				//search : "<i class='fa fa-search'></i>",
+				//info : "_TOTAL_ entries to show (_START_ to _END_)",
+				info : "",
+				paginate : {
+					first : "first",
+					previous : "<i class='fa fa-chevron-left'></i>",
+					next : "<i class='fa fa-chevron-right'></i>",
+					last : "last"
+				}
+			}
+		});
+	}); 
+</script>
+

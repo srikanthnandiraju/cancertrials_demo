@@ -1,0 +1,470 @@
+<style>
+    .iconblue {
+        color: #A8A5F6;
+    }
+    
+    .span1 {
+        padding-top: 5px;
+        color: #336699;
+    }
+    
+    .span2 {
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+</style>
+
+
+<div class="ui container" id="trial-detail">
+
+</div>
+
+
+<template id="TEMPLATE-TRIAL-DETAIL" type="text/template">
+
+    <div class="ui segment basic">
+        <div class="ui internally celled grid center aligned stackable">
+
+            <div class="row">
+                <div class="three wide column">
+                    <i class="flag icon large iconblue"></i>
+                    <br>
+                    <span class="span1">
+                        status
+                    </span>
+                    <br>
+                    <span class="span2">{{overall_status}}</span>
+                </div>
+                <div class="three wide column">
+                    <i class="users icon large iconblue"></i>
+                    <br>
+                    <span class="span1">
+                        gender
+                    </span>
+                    <br>
+                    <span class="span2">{{eligibility.gender}}</span>
+                </div>
+                <div class="three wide column">
+                    <i class="hourglass outline icon large iconblue"></i>
+                    <br>
+                    <span class="span1">
+                        age
+                    </span>
+                    <br>
+                    <span class="span2">{{eligibility.minimum_age}}</span>
+                </div>
+                <div class="three wide column">
+                    <i class="check icon large iconblue"></i>
+                    <br>
+                    <span class="span1">
+                        Healthy Patients
+                    </span>
+                    <br>
+                    <span class="span2">{{eligibility.healthy_volunteers}}</span>
+                </div>
+                <div class="three wide column">
+                    <i class="icon file alternate outline large iconblue"></i>
+                    <br>
+                    <span class="span1">
+                        NCT ID
+                    </span>
+                    <br>
+                    <span class="span2">{{id_info.nct_id}}</span>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="three wide column">
+                    <i class="sort amount down icon large iconblue"></i>
+                    <br>
+                    <span class="span1">
+                        phase
+                    </span>
+                    <br>
+                    <span class="span2">{{phase}}</span>
+                </div>
+                <div class="three wide column">
+                    <i class="folder open outline icon large iconblue"></i>
+                    <br>
+                    <span class="span1">
+                        masking
+                    </span>
+                    <br>
+                    <span class="span2">{{study_design_info.masking}}</span>
+                </div>
+                <div class="three wide column">
+                    <i class="target outline icon large iconblue"></i>
+                    <br>
+                    <span class="span1">
+                        study type
+                    </span>
+                    <br>
+                    <span class="span2">{{study_type}}</span>
+                </div>
+                <div class="three wide column">
+                    <i class="edit icon large iconblue"></i>
+                    <br>
+                    <span class="span1">
+                        entrollments
+                    </span>
+                    <br>
+                    <span class="span2">{{enrollment.__text}}</span>
+                </div>
+                <div class="three wide column">
+                    <i class="bell outline icon large iconblue"></i>
+                    <br>
+                    <span class="span1">
+                        Data Monitoring
+                    </span>
+                    <br>
+                    <span class="span2">{{oversight_info.has_dmc}}</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <div class="ui stackable grid" style="margin-top:30px;">
+
+        <div class="twelve wide column">
+
+            <h3 class="ui header">
+                <i class="folder open outline icon teal"></i>Overview</h3>
+            <div class="ui very padded segment blue">
+                <h3 class="ui header"> {{brief_title}}</h3>
+                <p>{{brief_summary.textblock}}</p>
+            </div>
+
+
+            <h3 class="ui header">
+                <i class="check icon teal"></i>Study</h3>
+
+            <div class="ui segment orange">
+                <div class="ui internally celled grid center aligned stackable">
+                    <div class="row">
+                        <div class="eight wide column left aligned">
+                            <h4 class="ui header orange">Design</h4>
+                            <br>
+                            <!-- <div class="ui divider"></div> -->
+                            <div class="ui list">
+                                <div class="item">
+                                    <div class="description">Allocation:
+                                        <span class="ui left pointing label right floated">{{study_design_info.allocation}}</span>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="description">Intervention Model:
+                                        <span class="ui left pointing label right floated ">{{study_design_info.intervention_model}}</span>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="description">Masking:
+                                        <span class="ui left pointing label right floated ">{{study_design_info.masking}}</span>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="description">Primary Purpose:
+                                        <span class="ui left pointing label right floated">{{study_design_info.primary_purpose}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="eight wide column left aligned">
+                            <h4 class="ui header orange">Intervention</h4>
+                            <br> {{#intervention}}
+                            <div class="ui list">
+                                <div class="item">
+                                    <i class="arrow right middle aligned icon iconblue"></i>
+                                    <div class="content">
+                                        <div class="description">intervention_type: {{intervention_type}}</div>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <i class="arrow right middle aligned icon iconblue"></i>
+                                    <div class="content">
+                                        <div class="description">intervention_name: {{intervention_name}}</div>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <i class="arrow right middle aligned icon iconblue"></i>
+                                    <div class="content">
+                                        <div class="description">description: {{description}}</div>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <i class="arrow right middle aligned icon iconblue"></i>
+                                    <div class="content">
+                                        <div class="description">other_name: {{other_name}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br> {{/intervention}}
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="eight wide column left aligned">
+                            <h4 class="ui header orange">Arms</h4>
+                            <br>
+                            <div class="ui relaxed divided list">
+                                {{#arm_group}}
+                                <div class="item">
+                                    <i class="large address book outline middle aligned icon iconblue"></i>
+                                    <div class="content">
+                                        <span class="header">{{arm_group_label}}</span>
+                                        <div class="description">{{description}}</div>
+                                    </div>
+                                </div>
+                                {{/arm_group}}
+                            </div>
+
+                        </div>
+                        <div class="eight wide column left aligned">
+                            <h4 class="ui header orange">Condition</h4>
+                            <br>
+
+                            <div class="ui list divided relaxed">
+                                {{#condition}}
+                                <div class="item">
+                                    <i class="arrow right icon iconblue"></i>
+                                    <div class="content">
+                                        <div class="description">{{.}}</div>
+                                    </div>
+
+                                </div>
+                                {{/condition}}
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+            <!-- <h3 class="ui header">
+                <i class="check icon teal"></i>Study</h3>
+            <div class="ui very padded segment orange">
+                <h3 class="ui header">Inclusion</h3>
+                <ul>
+                    {{#eligibility.unstructured}} {{#inclusion_indicator}}
+                    <li>{{description}}</li>
+                    {{/inclusion_indicator}} {{/eligibility.unstructured}}
+                </ul>
+            </div>
+            <div class="ui very padded segment">
+                <h3 class="ui header">Exclusion</h3>
+                <ul>
+                    {{#eligibility.unstructured}} {{^inclusion_indicator}}
+                    <li>{{description}}</li>
+                    {{/inclusion_indicator}} {{/eligibility.unstructured}}
+                </ul>
+            </div> -->
+
+            <h3 class="ui header">
+                <i class="check icon teal"></i>Eligibility Criteria</h3>
+            <div class="ui very padded segment brown">
+                <p style="white-space: pre-wrap;">{{eligibility.criteria.textblock}}</p>
+            </div>
+
+
+            <h3 class="ui header">
+                <i class="map icon teal"></i>Sites</h3>
+
+            <div class="ui segment  padded blue">
+                <table id="contacts-table" class="ui very basic small table selectable " cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Status</th>
+                            <th>Address</th>
+                            <th>Contact</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- {{#location}} -->
+                        <tr>
+                            <td class="center aligned">{{status}}</td>
+                            <td>
+                                <span class="ui header">{{facility.name}}</span>
+                                <br> {{facility.address.city}}, {{facility.address.zip}}
+                                <br> {{facility.address.country}}
+                            </td>
+                            <td>
+
+                                {{#contact.last_name}}
+                                <span class="ui label">
+                                    <i class="user icon"></i> {{contact.last_name}}</span>
+                                {{/contact.last_name}}
+                                <br>
+                                <br> {{#contact.phone}}
+                                <span class="ui label">
+                                    <i class="phone icon"></i> {{contact.phone}}</span>
+                                <br>
+                                <br> {{/contact.phone}} {{#contact.email}}
+                                <span class="ui label">
+                                    <i class="mail icon"></i> {{contact.email}}</span>
+
+                                {{/contact.email}}
+                            </td>
+
+                        </tr>
+
+
+
+                        <!-- {{/location}} -->
+                    </tbody>
+                </table>
+            </div>
+
+
+
+        </div>
+
+
+        <div class="four wide column">
+
+            <h3 class="ui header">
+                <i class="clock open outline icon teal"></i>Timeline</h3>
+            <div class="ui segment orange padded">
+
+                <div style="border-left:1px dotted gray;padding-left:1px;">
+                    &nbsp;&nbsp;First Submitted
+                    <br>
+                    <span class="ui left pointing label">{{study_first_submitted}}</span>
+                    <br>
+                    {{#firstreceived_date}}
+                    <div class="meta">
+                        <br>&nbsp;&nbsp; First Received
+                        <br>
+                        <span class="ui left pointing label">{{firstreceived_date}}</span>
+                        <br>
+                    </div>
+                    {{/firstreceived_date}}
+
+                    <br>&nbsp;&nbsp; Posted
+                    <br>
+                    <span class="ui left pointing label">{{study_first_posted.__text}}</span>
+                    <br>
+                    <br>&nbsp;&nbsp; Last updated
+                    <br>
+                    <span class="ui left pointing label">{{last_update_submitted}}</span>
+                    <br>
+                    <br>&nbsp;&nbsp; Verification date
+                    <br>
+                    <span class="ui left pointing label">{{verification_date}}</span>
+                    <br>
+                    <br>&nbsp;&nbsp; Primary completion date
+                    <br>
+                    <span class="ui left pointing label">{{primary_completion_date}}</span>
+                </div>
+            </div>
+
+
+            <h3 class="ui header">
+                <i class="building outline teal icon"></i>Org</h3>
+            <div class="ui segment center aligned red  padded  streached" style="min-height:400px;">
+                <span class="ui label pointing below fluid">Lead Sponser</span>
+                <p class="ui center aligned">
+                    <strong>{{sponsors.lead_sponsor.agency}}</strong>
+                </p>
+
+                <span class="ui label pointing below fluid">Colloborator</span>
+                <p class="ui center aligned">
+                    <strong>{{sponsors.collaborator.agency}}
+                    </strong>
+                </p>
+
+
+                <span class="ui label pointing below fluid">{{overall_official.role}}</span>
+                <p class="ui center aligned">
+                    <strong>{{overall_official.last_name}}
+                    </strong>
+                    <br>{{overall_official.affiliation}}
+
+                </p>
+
+                <span class="ui label pointing below fluid">Contact</span>
+                <p class="ui center aligned">
+                    <strong>{{overall_contact.last_name}}
+                    </strong>
+                    <br>{{overall_contact.phone}}
+                </p>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</template>
+
+<script>
+    function showTrials() {
+        $("#trial-detail").empty('');
+        var template = $('#TEMPLATE-TRIAL-DETAIL').html();
+        var html = Mustache.to_html(template, Trials.selectedTrialIdDetails.clinical_study);
+        $("#trial-detail").html(html);
+        $('#contacts-table').DataTable({
+            "dom": '<"ui center aligned"f><"ui segment"t><"right-aligned-panel"p>',
+            "pageLength": 5,
+            language: {
+                //search : "<i class='fa fa-search'></i>",
+                //info : "_TOTAL_ entries to show (_START_ to _END_)",
+                info: "",
+                paginate: {
+                    first: "first",
+                    previous: "<i class='fa fa-chevron-left'></i>",
+                    next: "<i class='fa fa-chevron-right'></i>",
+                    last: "last"
+                }
+            }
+        });
+    }
+
+
+    function getStudyDetails(study_id) {
+        Trials.fetchStudyJSON(study_id, function(jsonObj) {
+            Trials.selectedTrialIdDetails = jsonObj;
+            showTrials();
+        })
+
+    }
+
+
+    $(function() {
+        $(".trial-specific").show();
+        getStudyDetails(Trials.selectedTrial);
+
+        App.Events.listen('save-selected-trial', function() {
+            // handle multiple calls. Everytime this page is loaded, the event gets called. Fix it
+            var trialToSave = Trials.selectedTrialIdDetails;
+            trialToSave.nctid = trialToSave.clinical_study.id_info.nct_id;
+            Trials.saveTrial(trialToSave);
+            console.log("Saving trial **** ");
+        });
+
+        App.Events.listen('discuss-current-trial', function() {
+            // handle multiple calls. Everytime this page is loaded, the event gets called. Fix it
+            var trialToSave = Trials.selectedTrialIdDetails;
+            trialToSave.nctid = trialToSave.clinical_study.id_info.nct_id;
+            window.location.href = "#/comments/" + trialToSave.nctid;
+        });
+
+
+        $("#trial-detail").on('beforeunload', function() {
+            console.log('Are you sure you want to leave?');
+        });
+
+        $("#trial-detail").on('unload', function() {
+            alert("Going away");
+        });
+
+    });
+</script>
